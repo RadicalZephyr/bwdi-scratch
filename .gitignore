@@ -1,1 +1,7 @@
 /build/
+msvc/
+*.vcproj
+*.vcxproj
+*.sln
+/gmock/gtest/xcode/Samples/
+*.xcodeproj
