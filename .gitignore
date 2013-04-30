@@ -1,5 +1,6 @@
 /build/
 msvc/
+codegear/
 *.vcproj
 *.vcxproj
 *.sln

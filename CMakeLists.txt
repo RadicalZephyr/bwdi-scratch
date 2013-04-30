@@ -8,6 +8,8 @@ include_directories("${Boost_INCLUDE_DIRS}")
 find_package(Protobuf REQUIRED)
 include_directories(${PROTOBUF_INCLUDE_DIRS})
 
+add_subdirectory("gmock")
+
 add_subdirectory("hack")
 add_subdirectory("driver")
 add_subdirectory("client")
