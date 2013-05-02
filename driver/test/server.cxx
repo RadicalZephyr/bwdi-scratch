@@ -68,10 +68,13 @@ int main(int argc, char **argv) {
     perror("Failed to open the FIFO.");
   }
 
+  char c;
+  if (1 != read(fifofd, &c, 1))
+    perror("Couldn't read at least 1 byte from FIFO\n");
+
   if (debug)
-    printf ("Setting shared memory to all 1's\n");
-  // Go into a busy loop doing something
-  std::memset(region.get_address(), 1, region.get_size());
+    printf ("Setting shared memory to %c\n", c);
+  std::memset(region.get_address(), c, region.get_size());
 
   // Clean up
   if (debug)
