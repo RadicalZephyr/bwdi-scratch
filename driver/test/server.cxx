@@ -60,12 +60,23 @@ int main(int argc, char **argv) {
     perror("Failed to create the FIFO\n");
   }
 
+  int fifofd;
+  // Open FIFO
+  if (debug)
+    printf ("Opening the FIFO\n");
+  if (-1 == (fifofd = open(FIFO_NAME, O_RDONLY))) {
+    perror("Failed to open the FIFO.");
+  }
+
   if (debug)
     printf ("Setting shared memory to all 1's\n");
   // Go into a busy loop doing something
   std::memset(region.get_address(), 1, region.get_size());
 
   // Clean up
+  if (debug)
+    printf("Closing the FIFO\n");
+  close(fifofd);
   if (debug)
     printf ("Removing the FIFO\n");
   unlink(FIFO_NAME);
