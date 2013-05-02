@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 
+#include <cstdlib>
 #include <cstring>
 
 #define BOOST_DATE_TIME_NO_LIB
@@ -48,7 +49,10 @@ int main(int argc, char **argv) {
 
   // Create FIFO
 
+  if (debug)
+    printf ("Setting shared memory to all 1's\n");
   // Go into a busy loop doing something
+  std::memset(region.get_address(), 1, region.get_size());
 
   // Clean up
   if (debug)
