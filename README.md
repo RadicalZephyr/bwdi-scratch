@@ -15,36 +15,44 @@ under Linux, but solely to enable development of the non-Windows
 specific portions of the code base under Linux as well as Windows.
 
 
-Testing & Code Reuse
-------------------
+Installation
+------------
 
-As specific functionality from BWAPI is implemented, the code will be
-copied over and tested/refactored as needed.
+Currently there is nothing to install.  Simply build and run.
 
 
-Cross-Platform
---------------
+Building
+--------
 
-This choice seems to run counter to the design philosophy expressed in
-[BWDI's][1] documentation of minimal support to improve code quality.
-However, I think that there will be several benefits to having the
-core logic of the interface be platform agnostic.  First, different
-compilers catch different bugs.  In addition, the *nix platform has
-support for different tools (such as Valgrind) that can be VERY
-helpful when developing a C++ application.
+BWAPIscratch has a couple of external dependencies.
 
-Second, mockist testing will allow us to abstract away the parts of
-the hack that cannot be reimplemented on Linux.  This is a GOOD THING,
-because that will help to refine the interface, and allow me to more
-easily test the rest of the engine.
+- [Boost 1.53](http://www.boost.org/)
+- [Protocol Buffers](https://code.google.com/p/protobuf/)
 
-Third, the use of only mature, cross-platform libraries and
-technologies will hopefully again keep the quality high, as well as
-limit the possibilities.
+BWAPIscratch is built using CMake 2.6+ (<http://www.cmake.org>) on all
+platforms.
 
-Finally, I would never actually do this project if I had to set up a
-Windows machine (or even boot into one ;) every time I wanted to work
-on it.
+On most systems you can build the library using the following commands
+
+    $ mkdir build && cd build
+    $ cmake ..
+    $ cmake --build .
+
+Alternatively you can point the CMake GUI tool to the CMakeLists.txt
+file and generate platform specific build project or IDE workspace.
+
+
+Basic Usage
+-----------
+
+Right now only testing programs exist...  Coming soon!
+
+
+Documentation
+-------------
+
+TODO!
+
 
 License
 -------
