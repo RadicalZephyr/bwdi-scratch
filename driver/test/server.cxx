@@ -5,6 +5,7 @@
 
 #define BOOST_DATE_TIME_NO_LIB
 #include <boost/interprocess/shared_memory_object.hpp>
+#include <boost/interprocess/mapped_region.hpp>
 
 using namespace boost::interprocess;
 
@@ -22,6 +23,17 @@ int main(int argc, char **argv) {
   (create_only,                //only create
    "bwdidriver_sm_test",       //name
    read_write);                //read-write mode
+
+  std::size_t mem_size = 1000;
+  // Set the shared mem size
+  shm_obj.truncate(mem_size);
+
+  // Map the shared_memory
+  mapped_region region
+  (shm_obj,          //Memory-mappable object
+   read_write,       //Access mode
+   0,                //Offset from the beginning of shm
+   mem_size);        //Length of the region
 
   // Create FIFO
 
