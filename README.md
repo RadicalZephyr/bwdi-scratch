@@ -1,4 +1,4 @@
-[BWDIscratch][3] - BroodWar Data Interface (from scratch)
+BroodWar Data Interface (from scratch)
 ==============================================
 
 This is a "reimplementation" of the original [BWDI][1] project,
@@ -6,21 +6,20 @@ starting from scratch.  The design goals and end product will be the
 same (meaning, blatantly stolen ;), but the implementation details and
 strategy are wholly different.  [BWDI][1] started life as a fork of
 [BWAPI][2] and it shows in a really confusing codebase, that is fairly
-completely lacking in tests.  My plan with [BWDIscratch][3] is to start over
-from bare bones, and implement the basic structure in vertical slices,
-testing the entire time.  In addition, since I'm a Linux user by
-choice, the project will be cross-platform.  The intention is NOT to
-be able to run StarCraft and [BWDIscratch][3] under Linux, but solely to
-enable development of the non-Windows specific portions of the code
-base under Linux as well as Windows.
+completely lacking in tests.  My plan with [BWDIscratch][3] is to
+start over from bare bones, and implement the basic structure in
+vertical slices, testing the entire time.  In addition, since I'm a
+Linux user by choice, the project will be cross-platform.  The
+intention is NOT to be able to run StarCraft and [BWDIscratch][3]
+under Linux, but solely to enable development of the non-Windows
+specific portions of the code base under Linux as well as Windows.
 
 
-Testing/Code Reuse
+Testing & Code Reuse
 ------------------
 
-As specific functionality from BWAPI is
-implemented, the code will be copied over and tested/refactored as
-needed.
+As specific functionality from BWAPI is implemented, the code will be
+copied over and tested/refactored as needed.
 
 
 Cross-Platform
@@ -57,10 +56,10 @@ under the terms of the GNU General Public License as published by the
 Free Software Foundation, either version 3 of the License, or (at your
 option) any later version.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+BWDIscratch is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
