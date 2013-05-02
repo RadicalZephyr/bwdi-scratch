@@ -7,3 +7,4 @@ add_library(BWDIDriver
 
 add_executable(test_server
                "test/server.cxx")
+target_link_libraries(test_server rt)
