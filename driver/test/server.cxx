@@ -8,7 +8,12 @@
 #include <boost/interprocess/shared_memory_object.hpp>
 #include <boost/interprocess/mapped_region.hpp>
 
+#include <fcntl.h>
+#include <sys/stat.h>
+
 #define SHARED_MEM_NAME "bwdidriver_sm_test"
+#define FIFO_NAME "bwdidriver_fifo_test"
+
 using namespace boost::interprocess;
 
 int main(int argc, char **argv) {
@@ -48,6 +53,12 @@ int main(int argc, char **argv) {
     printf ("Shared memory mapped to: %p\n", region.get_address());
 
   // Create FIFO
+  if (debug)
+    printf ("Creating the FIFO\n");
+
+  if (0 != mkfifoat(AT_FDCWD, FIFO_NAME, 0666)) {
+    perror("Failed to create the FIFO\n");
+  }
 
   if (debug)
     printf ("Setting shared memory to all 1's\n");
@@ -56,6 +67,10 @@ int main(int argc, char **argv) {
 
   // Clean up
   if (debug)
+    printf ("Removing the FIFO\n");
+  unlink(FIFO_NAME);
+
+if (debug)
     printf ("Removing the shared memory\n");
   shared_memory_object::remove(SHARED_MEM_NAME);
 }
