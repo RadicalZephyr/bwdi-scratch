@@ -20,14 +20,22 @@ int main(int argc, char **argv) {
   }
 
   // Create named shared_memory
+  if (debug)
+    printf ("Creating the shared memory...\n");
+
   shared_memory_object shm_obj
   (create_only,                //only create
    SHARED_MEM_NAME,       //name
    read_write);                //read-write mode
 
   std::size_t mem_size = 1000;
+  if (debug)
+    printf ("Resizing the shared memory to: %ld...\n", mem_size);
   // Set the shared mem size
   shm_obj.truncate(mem_size);
+
+  if (debug)
+    printf ("Mapping the shared memory\n");
 
   // Map the shared_memory
   mapped_region region
@@ -35,11 +43,15 @@ int main(int argc, char **argv) {
    read_write,       //Access mode
    0,                //Offset from the beginning of shm
    mem_size);        //Length of the region
+  if (debug)
+    printf ("Shared memory mapped to: %p\n", region.get_address());
 
   // Create FIFO
 
   // Go into a busy loop doing something
 
   // Clean up
+  if (debug)
+    printf ("Removing the shared memory\n");
   shared_memory_object::remove(SHARED_MEM_NAME);
 }
