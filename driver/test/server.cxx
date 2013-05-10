@@ -116,9 +116,13 @@ int main(int argc, char **argv) {
     }
   } fifo_closer(fifofd, debug);
 
+  if (debug)
+    printf("Waiting to read from FIFO...\n");
   char c;
   if (1 != read(fifofd, &c, 1))
     perror("Couldn't read at least 1 byte from FIFO\n");
+  if (debug)
+    printf("Read %c from the FIFO\n", c);
 
   if (debug)
     printf("Setting shared memory to %c\n", c);
