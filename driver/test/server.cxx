@@ -41,14 +41,25 @@ int main(int argc, char **argv) {
     }
   }
 
+  struct shm_remove
+  {
+    bool m_debug;
+    shm_remove(bool debug):m_debug(debug) {}
+    ~shm_remove(){
+      if (m_debug)
+        printf("Removing the shared memory\n");
+      shared_memory_object::remove(SHARED_MEM_NAME);
+    }
+  } shm_remover(debug);
+
   // Create named shared_memory
   if (debug)
     printf("Creating the shared memory...\n");
 
   shared_memory_object shm_obj
-  (create_only,                //only create
-   SHARED_MEM_NAME,       //name
-   read_write);                //read-write mode
+    (create_only,                //only create
+     SHARED_MEM_NAME,            //name
+     read_write);                //read-write mode
 
   std::size_t mem_size = 1000;
   if (debug)
@@ -76,6 +87,16 @@ int main(int argc, char **argv) {
     perror("Failed to create the FIFO\n");
   }
 
+  struct fifo_remove {
+    bool m_debug;
+    fifo_remove(bool debug):m_debug(debug) {}
+    ~fifo_remove(){
+      if (m_debug)
+        printf("Removing the FIFO\n");
+      unlink(FIFO_NAME);
+    }
+  } fifo_remover(debug);
+
   int fifofd;
   // Open FIFO
   if (debug)
@@ -83,6 +104,17 @@ int main(int argc, char **argv) {
   if (-1 == (fifofd = open(FIFO_NAME, O_RDONLY))) {
     perror("Failed to open the FIFO.");
   }
+
+  struct fifo_close{
+    bool m_debug;
+    int m_fd;
+    fifo_close(int fd, bool debug):m_debug(debug), m_fd(fd) {}
+    ~fifo_close() {
+      if (m_debug)
+        printf("Closing the FIFO\n");
+      close(m_fd);
+    }
+  } fifo_closer(fifofd, debug);
 
   char c;
   if (1 != read(fifofd, &c, 1))
@@ -92,15 +124,6 @@ int main(int argc, char **argv) {
     printf("Setting shared memory to %c\n", c);
   std::memset(region.get_address(), c, region.get_size());
 
-  // Clean up
-  if (debug)
-    printf("Closing the FIFO\n");
-  close(fifofd);
-  if (debug)
-    printf("Removing the FIFO\n");
-  unlink(FIFO_NAME);
-
-if (debug)
-    printf("Removing the shared memory\n");
-  shared_memory_object::remove(SHARED_MEM_NAME);
+  // Clean up is handled automatically by the destruction of our
+  // temporary structs
 }
