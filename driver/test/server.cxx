@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
 
   // Create named shared_memory
   if (debug)
-    printf ("Creating the shared memory...\n");
+    printf("Creating the shared memory...\n");
 
   shared_memory_object shm_obj
   (create_only,                //only create
@@ -52,12 +52,12 @@ int main(int argc, char **argv) {
 
   std::size_t mem_size = 1000;
   if (debug)
-    printf ("Resizing the shared memory to: %ld...\n", mem_size);
+    printf("Resizing the shared memory to: %ld...\n", mem_size);
   // Set the shared mem size
   shm_obj.truncate(mem_size);
 
   if (debug)
-    printf ("Mapping the shared memory\n");
+    printf("Mapping the shared memory\n");
 
   // Map the shared_memory
   mapped_region region
@@ -66,11 +66,11 @@ int main(int argc, char **argv) {
    0,                //Offset from the beginning of shm
    mem_size);        //Length of the region
   if (debug)
-    printf ("Shared memory mapped to: %p\n", region.get_address());
+    printf("Shared memory mapped to: %p\n", region.get_address());
 
   // Create FIFO
   if (debug)
-    printf ("Creating the FIFO\n");
+    printf("Creating the FIFO\n");
 
   if (0 != mkfifoat(AT_FDCWD, FIFO_NAME, 0666)) {
     perror("Failed to create the FIFO\n");
@@ -79,7 +79,7 @@ int main(int argc, char **argv) {
   int fifofd;
   // Open FIFO
   if (debug)
-    printf ("Opening the FIFO\n");
+    printf("Opening the FIFO\n");
   if (-1 == (fifofd = open(FIFO_NAME, O_RDONLY))) {
     perror("Failed to open the FIFO.");
   }
@@ -89,7 +89,7 @@ int main(int argc, char **argv) {
     perror("Couldn't read at least 1 byte from FIFO\n");
 
   if (debug)
-    printf ("Setting shared memory to %c\n", c);
+    printf("Setting shared memory to %c\n", c);
   std::memset(region.get_address(), c, region.get_size());
 
   // Clean up
@@ -97,10 +97,10 @@ int main(int argc, char **argv) {
     printf("Closing the FIFO\n");
   close(fifofd);
   if (debug)
-    printf ("Removing the FIFO\n");
+    printf("Removing the FIFO\n");
   unlink(FIFO_NAME);
 
 if (debug)
-    printf ("Removing the shared memory\n");
+    printf("Removing the shared memory\n");
   shared_memory_object::remove(SHARED_MEM_NAME);
 }
