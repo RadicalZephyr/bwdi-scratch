@@ -16,3 +16,4 @@ target_link_libraries(test_client rt)
 add_executable(test_driver
                "test/driver.cxx")
 target_link_libraries(test_driver ${POCO_LIBRARIES})
+add_test(round_trip "test_driver")

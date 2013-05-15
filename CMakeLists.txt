@@ -18,6 +18,8 @@ find_package(Protobuf REQUIRED)
 
 add_subdirectory("gmock")
 
+enable_testing()
+
 add_subdirectory("hack")
 add_subdirectory("driver")
 add_subdirectory("client")
